@@ -32,6 +32,9 @@ class HomeViewModel(private val itemsRepository: ItemsRepository) : ViewModel() 
             quantity = 1000
         ))
     }
+    suspend fun deleteAllItems() {
+        itemsRepository.deleteAll()
+    }
 
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L

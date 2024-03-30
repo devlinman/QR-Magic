@@ -46,7 +46,6 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.inventory.InventoryTopAppBar
@@ -56,7 +55,6 @@ import com.example.inventory.data.Item
 import com.example.inventory.ui.AppViewModelProvider
 import com.example.inventory.ui.item.formatedPrice
 import com.example.inventory.ui.navigation.NavigationDestination
-import com.example.inventory.ui.theme.InventoryTheme
 import com.google.android.gms.common.moduleinstall.ModuleInstall
 import com.google.android.gms.common.moduleinstall.ModuleInstallRequest
 import com.google.mlkit.vision.barcode.common.Barcode
@@ -85,9 +83,9 @@ fun provideBarcodeScanner(context: Context): GmsBarcodeScanner {
 }
 
 @Composable
-fun YourBottomBar(context: Context) {
+fun MyBottomBar(context: Context, viewModel: HomeViewModel) {
     var expanded by remember { mutableStateOf(false) }
-
+    val coroutineScope = rememberCoroutineScope()
     Box {
         Button(
             onClick = { expanded = true },
@@ -107,23 +105,27 @@ fun YourBottomBar(context: Context) {
             DropdownMenuItem(
                 onClick = {
                     Toast.makeText(context, "Import", Toast.LENGTH_SHORT).show()
-                    expanded = false // Dismiss the dropdown after action
+                    expanded = false
                 },
                 text = { Text("Import Database") }
             )
             DropdownMenuItem(
                 onClick = {
                     Toast.makeText(context, "Export", Toast.LENGTH_SHORT).show()
-                    expanded = false // Dismiss the dropdown after action
+                    expanded = false
                 },
                 text = { Text("Export Database") }
             )
             DropdownMenuItem(
                 onClick = {
-                    Toast.makeText(context, "Destroy", Toast.LENGTH_SHORT).show()
-                    expanded = false // Dismiss the dropdown after action
+                    coroutineScope.launch {
+                        viewModel.deleteAllItems()
+                    }
+
+                    Toast.makeText(context, "Deleted All Items!", Toast.LENGTH_SHORT).show()
+                    expanded = false
                 },
-                text = { Text("Destroy Database") }
+                text = { Text("Delete All Items") }
             )
         }
     }
@@ -134,7 +136,7 @@ fun YourBottomBar(context: Context) {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
-    navigateToItemEntry: () -> Unit,
+//    navigateToItemEntry: () -> Unit,
     navigateToItemUpdate: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
@@ -144,20 +146,18 @@ fun HomeScreen(
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val context = LocalContext.current
 
-
-
     val moduleInstall = ModuleInstall.getClient(context)
     val moduleInstallRequest = ModuleInstallRequest.newBuilder()
         .addApi(GmsBarcodeScanning.getClient(context))
         .build()
     moduleInstall
         .installModules(moduleInstallRequest)
-        .addOnSuccessListener {
-            if (it.areModulesAlreadyInstalled()) {
-            }
-        }
+//        .addOnSuccessListener {
+//            if (it.areModulesAlreadyInstalled()) {
+//            }
+//        }
         .addOnFailureListener {
-            Log.d("debug", "...")
+            Log.d("debug", "Homescreen.kt::158")
         }
 
     val scanner = provideBarcodeScanner(context = context)
@@ -172,7 +172,7 @@ fun HomeScreen(
                 scrollBehavior = scrollBehavior
             )
         },
-        bottomBar = { YourBottomBar(context = context)
+        bottomBar = { MyBottomBar(context = context, viewModel = viewModel)
         },
         floatingActionButton = {
             FloatingActionButton(
@@ -284,33 +284,5 @@ private fun InventoryItem(
                 style = MaterialTheme.typography.titleMedium
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomeBodyPreview() {
-    InventoryTheme {
-        HomeBody(listOf(
-            Item(1, "Game", 100.0, 20), Item(2, "Pen", 200.0, 30), Item(3, "TV", 300.0, 50)
-        ), onItemClick = {})
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomeBodyEmptyListPreview() {
-    InventoryTheme {
-        HomeBody(listOf(), onItemClick = {})
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun InventoryItemPreview() {
-    InventoryTheme {
-        InventoryItem(
-            Item(1, "Game", 100.0, 20),
-        )
     }
 }

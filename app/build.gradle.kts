@@ -20,8 +20,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp") version "1.8.21-1.0.11"
-    id("com.android.application")
-    id("com.google.gms.google-services")
 }
 
 android {
@@ -47,6 +45,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -100,5 +99,4 @@ dependencies {
     implementation("com.google.android.gms:play-services-base:18.3.0")
     implementation("com.google.android.gms:play-services-tflite-java:16.2.0-beta02")
 
-    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
 }
