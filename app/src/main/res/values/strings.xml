@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">QR Magic</string>
+    <string name="attention">Attention</string>
+    <string name="back_button">Back</string>
+    <string name="delete">Delete</string>
+    <string name="delete_question">Are you sure you want to delete?</string>
+    <string name="no_item_description">Press the button to scan a QR code!</string>
+    <string name="edit_item_title">Edit Item</string>
+    <string name="item">Coupon</string>
+    <string name="item_detail_title">Coupon Details</string>
+    <string name="item_entry_title">Add Coupon</string>
+    <string name="item_name_req">Name</string>
+    <string name="item_price_req">Coupon Price*</string>
+    <string name="no">No</string>
+    <string name="price">Price</string>
+    <string name="quantity_in_stock">Number of coupons</string>
+    <string name="in_stock">%d Scans Left</string>
+    <string name="quantity_req">Number of times Scanned</string>
+    <string name="save_action">Save</string>
+    <string name="sell">Subtract 1</string>
+    <string name="yes">Yes</string>
+    <string name="required_fields">*required fields</string>
+    <string name="menu_icon_description">Options</string>
+</resources>
