@@ -47,6 +47,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -76,6 +77,7 @@ fun ItemDetailsScreen(
     viewModel: ItemDetailsViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val uiState = viewModel.uiState.collectAsState()
+    val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     Scaffold(
         topBar = {
@@ -101,6 +103,7 @@ fun ItemDetailsScreen(
         ItemDetailsBody(
             itemDetailsUiState = uiState.value,
             onSellItem = { viewModel.reduceQuantityByOne() },
+            copyToClipBoard = { viewModel.copyToClipboard(context) },
             onDelete = {
                 // Note: If the user rotates the screen very fast, the operation may get cancelled
                 // and the item may not be deleted from the Database. This is because when config
@@ -122,6 +125,7 @@ fun ItemDetailsScreen(
 private fun ItemDetailsBody(
     itemDetailsUiState: ItemDetailsUiState,
     onSellItem: () -> Unit,
+    copyToClipBoard: () -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -140,6 +144,14 @@ private fun ItemDetailsBody(
             enabled = !itemDetailsUiState.outOfStock
         ) {
             Text(stringResource(R.string.sell))
+        }
+        Button(
+            onClick = copyToClipBoard,
+            modifier = Modifier.fillMaxWidth(),
+            shape = MaterialTheme.shapes.small,
+            enabled = !itemDetailsUiState.outOfStock
+        ) {
+            Text("Copy to Clipboard")
         }
         OutlinedButton(
             onClick = { deleteConfirmationRequired = true },
@@ -250,6 +262,6 @@ fun ItemDetailsScreenPreview() {
     InventoryTheme {
         ItemDetailsBody(ItemDetailsUiState(
             outOfStock = true, itemDetails = ItemDetails(1, "Pen", "$100", "10")
-        ), onSellItem = {}, onDelete = {})
+        ), onSellItem = {}, copyToClipBoard = {},onDelete = {})
     }
 }
