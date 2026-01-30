@@ -21,4 +21,13 @@
     <string name="yes">Yes</string>
     <string name="required_fields">*required fields</string>
     <string name="menu_icon_description">Options</string>
+    <string name="settings_title">Settings</string>
+    <string name="welcome_message">Welcome to QR Magic!</string>
+    <string name="import_database">Import Database</string>
+    <string name="csv_header">Required CSV Format</string>
+    <string name="csv_col_name">Name (Text)</string>
+    <string name="csv_col_qty">Quantity (Integer)</string>
+    <string name="csv_col_price">Price (Decimal)</string>
+    <string name="csv_col_status">Status (valid, invalid, used)</string>
+    <string name="csv_note">* Quantity must be &gt; 0 for \'valid\' items</string>
 </resources>

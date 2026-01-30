@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
-    extra.apply {
-        set("room_version", "2.6.1")
+package com.linman.qrmagic
+
+import android.app.Application
+import com.linman.qrmagic.data.AppContainer
+import com.linman.qrmagic.data.AppDataContainer
+
+class InventoryApplication : Application() {
+
+    /**
+     * AppContainer instance used by the rest of classes to obtain dependencies
+     */
+    lateinit var container: AppContainer
+
+    override fun onCreate() {
+        super.onCreate()
+        container = AppDataContainer(this)
     }
-}
-
-plugins {
-}
-
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
 }

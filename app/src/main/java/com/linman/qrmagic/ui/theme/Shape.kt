@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.linman.qrmagic.ui.theme
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
-    extra.apply {
-        set("room_version", "2.6.1")
-    }
-}
+import androidx.compose.foundation.shape.CutCornerShape
+import androidx.compose.material3.Shapes
+import androidx.compose.ui.unit.dp
 
-plugins {
-}
+val Shapes = Shapes(
 
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
-}
+    extraSmall = CutCornerShape(topEnd = 8.dp, bottomStart = 8.dp),
+    small = CutCornerShape(topEnd = 8.dp, bottomStart = 8.dp),
+    medium = CutCornerShape(topEnd = 16.dp, bottomStart = 16.dp)
+)

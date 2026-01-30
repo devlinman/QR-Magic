@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.inventory",
+  "applicationId": "com.linman.qrmagic",
   "variantName": "release",
   "elements": [
     {

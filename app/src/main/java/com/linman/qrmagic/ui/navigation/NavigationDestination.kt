@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
-    extra.apply {
-        set("room_version", "2.6.1")
-    }
-}
+package com.linman.qrmagic.ui.navigation
 
-plugins {
-}
+/**
+ * Interface to describe the navigation destinations for the app
+ */
+interface NavigationDestination {
+    /**
+     * Unique name to define the path for a composable
+     */
+    val route: String
 
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
+    /**
+     * String resource id to that contains title to be displayed for the screen.
+     */
+    val titleRes: Int
 }
