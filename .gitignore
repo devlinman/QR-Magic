@@ -35,3 +35,6 @@ proguard-project.txt
 *.iml
 .idea
 /app/release/baselineProfiles
+
+# other
+*.kate-swp
