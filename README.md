@@ -1,5 +1,25 @@
-# QR MAGIC
-## QR Code Scanner For Coupons (During Events)
+<div style="display:flex; align-items:center; justify-content:center; position:relative;">
+
+  <div style="position:absolute; left:0;">
+    <img src="qr-code-svgrepo-com.png" alt="QR Magic Icon" width="90"/>
+  </div>
+
+  <div align="center">
+    <h1>QR MAGIC</h1>
+    <p style="font-size:20px; font-weight:500;">
+      QR Code Scanner For Coupons (During Events)
+    </p>
+  </div>
+
+</div>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Platform-Android-green?logo=android" alt="Android Badge"/>
+  <img src="https://img.shields.io/badge/Language-Kotlin-purple?logo=kotlin" alt="Kotlin Badge"/>
+  <img src="https://img.shields.io/badge/License-Apache%202.0-blue?logo=apache" alt="Apache 2.0 License Badge"/>
+</p>
+
+---
 
 
 # Some Screenshots

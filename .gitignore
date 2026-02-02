@@ -38,3 +38,7 @@ proguard-project.txt
 
 # other
 *.kate-swp
+
+
+# release folder
+/app/release
